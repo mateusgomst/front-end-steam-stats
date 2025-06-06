@@ -1,0 +1,42 @@
+/* Footer estilo jogo indie: escuro, simples e elegante */
+.footer {
+    background-color: #1e1e1e; /* Fundo escuro sólido */
+    color: #aaa; /* Texto em cinza claro */
+    text-align: center;
+    padding: 15px 20px;
+    font-size: 14px;
+    border-top: 1px solid #333;
+    font-family: 'Courier New', monospace; /* Estilo retrô/tech */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+}
+
+/* Texto do footer */
+.footer p {
+    margin: 0;
+    transition: color 0.3s ease;
+}
+
+/* Hover sutil */
+.footer p:hover {
+    color: #00ffc3; /* Verde neon sutil para dar vibe tech/gamer */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .footer {
+        padding: 12px 10px;
+    }
+
+    .footer p {
+        font-size: 12px;
+    }
+}
+
+/* Garante que o conteúdo não fique escondido atrás do footer */
+body {
+    padding-bottom: 60px; /* Ajuste conforme a altura real do footer */
+}
