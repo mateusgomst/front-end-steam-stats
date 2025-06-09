@@ -1,1 +1,55 @@
-<p>home works!</p>
+<!-- src/app/home/home.component.html -->
+
+<div class="page-container">
+  <div class="content-container">
+    <header class="header">
+      <h1 class="header-title">STEAM STATS</h1>
+      <p class="header-subtitle">Explore e gerencie sua wishlist de jogos</p>
+    </header>
+
+    <!-- Mensagem de erro -->
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+      <button (click)="retry()" class="retry-button">
+        Tentar Novamente
+      </button>
+    </div>
+
+    <!-- Estado de carregamento -->
+    <div *ngIf="isLoading" class="loading-state">
+      <p>Carregando jogos...</p>
+    </div>
+
+    <!-- Lista de jogos -->
+    <ng-container *ngIf="!isLoading && !error">
+      <ng-container *ngIf="games$ | async as games">
+        <div *ngIf="games.length > 0; else noGames" class="games-grid">
+          <div *ngFor="let game of games" class="game-card">
+            <div class="game-content">
+              <h2 class="game-title" [title]="game.nameGame">
+                {{ game.nameGame }}
+              </h2>
+              <p class="game-appid">AppID: {{ game.appId }}</p>
+              
+              <div class="game-stats">
+                <span class="positive-reviews">
+                  👍 {{ game.positive | number }}
+                </span>
+                <span *ngIf="game.discount > 0" class="discount-badge">
+                  -{{ game.discount }}% OFF
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <!-- Template para quando não há jogos -->
+    <ng-template #noGames>
+      <div class="no-games-state">
+        <p>Nenhum jogo encontrado.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

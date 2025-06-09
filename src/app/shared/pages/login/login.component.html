@@ -1,0 +1,89 @@
+<div class="login-container">
+  <div class="login-box">
+    <h1 class="title">{{ isRegistering ? 'CRIAR CONTA' : 'LOGIN' }}</h1>
+    
+    <!-- Formulário de Login -->
+    <form *ngIf="!isRegistering" [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+      <div class="form-group">
+        <input
+          type="email"
+          formControlName="login"
+          placeholder="Email"
+          [class.invalid]="loginForm.get('login')?.invalid && loginForm.get('login')?.touched"
+        >
+      </div>
+
+      <div class="form-group">
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="Senha"
+          [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+        >
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="loginForm.invalid || isLoading"
+        class="submit-button"
+      >
+        {{ isLoading ? 'CARREGANDO...' : 'ENTRAR' }}
+      </button>
+    </form>
+
+    <!-- Formulário de Registro -->
+    <form *ngIf="isRegistering" [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+      <div class="form-group">
+        <input 
+          type="text" 
+          formControlName="name"
+          placeholder="Nome"
+          [class.invalid]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+        >
+      </div>
+
+      <div class="form-group">
+        <input 
+          type="email" 
+          formControlName="login"
+          placeholder="Email"
+          [class.invalid]="registerForm.get('login')?.invalid && registerForm.get('login')?.touched"
+        >
+      </div>
+
+      <div class="form-group">
+        <input 
+          type="password" 
+          formControlName="password"
+          placeholder="Senha"
+          [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+        >
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="registerForm.invalid || isLoading"
+        class="submit-button"
+      >
+        {{ isLoading ? 'CARREGANDO...' : 'REGISTRAR' }}
+      </button>
+    </form>
+
+    <!-- Botão para alternar entre Login e Registro -->
+    <button 
+      (click)="toggleMode()" 
+      class="toggle-button"
+      [disabled]="isLoading"
+    >
+      {{ isRegistering ? 'JÁ TEM CONTA? FAÇA LOGIN' : 'CRIAR NOVA CONTA' }}
+    </button>
+  </div>
+</div> 
