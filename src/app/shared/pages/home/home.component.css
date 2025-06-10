@@ -155,3 +155,103 @@
 .retry-button:hover {
   background-color: #ff5252;
 }
+
+.wishlist-button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background-color: #4a5568;
+  color: #8e7cc3;
+  border: 2px solid #8e7cc3;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wishlist-button:hover {
+  background-color: #8e7cc3;
+  color: white;
+}
+
+.wishlist-error {
+  background-color: #2d1b1b;
+  border-color: #ff6b6b;
+  margin-bottom: 1rem;
+}
+
+/* Barra de pesquisa */
+.search-container {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  background-color: #2a2438;
+  border: 2px solid #5c4d7d;
+  border-radius: 8px;
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #8e7cc3;
+  box-shadow: 0 0 0 2px rgba(142, 124, 195, 0.2);
+}
+
+.search-input::placeholder {
+  color: #8e7cc3;
+  opacity: 0.7;
+}
+
+.clear-button {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #8e7cc3;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.clear-button:hover {
+  color: #ff6b6b;
+}
+
+.search-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #5c4d7d;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #8e7cc3;
+}

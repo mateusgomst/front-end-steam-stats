@@ -5,6 +5,35 @@
     <header class="header">
       <h1 class="header-title">STEAM STATS</h1>
       <p class="header-subtitle">Explore e gerencie sua wishlist de jogos</p>
+
+      <!-- Barra de pesquisa -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="Buscar jogos..."
+            class="search-input"
+            (keyup.enter)="onSearch()"
+            #searchInput
+          >
+          <button 
+            *ngIf="searchTerm" 
+            class="clear-button" 
+            (click)="clearSearch()"
+            title="Limpar busca"
+          >
+            ✕
+          </button>
+        </div>
+        <button 
+          class="search-button" 
+          (click)="onSearch()"
+          [disabled]="isLoading"
+        >
+          {{ isLoading ? 'Buscando...' : 'Buscar' }}
+        </button>
+      </div>
     </header>
 
     <!-- Mensagem de erro -->
@@ -15,9 +44,14 @@
       </button>
     </div>
 
+    <!-- Mensagem de erro da wishlist -->
+    <div *ngIf="wishlistError" class="error-message wishlist-error">
+      <p>{{ wishlistError }}</p>
+    </div>
+
     <!-- Estado de carregamento -->
     <div *ngIf="isLoading" class="loading-state">
-      <p>Carregando jogos...</p>
+      <p>{{ searchTerm ? 'Buscando jogos...' : 'Carregando jogos...' }}</p>
     </div>
 
     <!-- Lista de jogos -->
@@ -39,6 +73,10 @@
                   -{{ game.discount }}% OFF
                 </span>
               </div>
+
+              <button class="wishlist-button" (click)="addToWishlist(game)">
+                Adicionar à Wishlist
+              </button>
             </div>
           </div>
         </div>
@@ -48,7 +86,7 @@
     <!-- Template para quando não há jogos -->
     <ng-template #noGames>
       <div class="no-games-state">
-        <p>Nenhum jogo encontrado.</p>
+        <p>Nenhum jogo encontrado{{ searchTerm ? ' para "' + searchTerm + '"' : '' }}.</p>
       </div>
     </ng-template>
   </div>

@@ -9,7 +9,7 @@ import { Game } from '../models/game.model';
   providedIn: 'root'
 })
 export class GameService {
-  private readonly apiUrl = '/api';
+  private readonly apiUrl = 'http://localhost:5090';
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +34,45 @@ export class GameService {
       }),
       catchError((error) => {
         console.log('GameService: Erro interceptado no catchError:', error);
+        return this.handleError(error);
+      })
+    );
+  }
+
+  searchGamesByName(name: string): Observable<Game[]> {
+    console.log('GameService: Iniciando busca por nome:', name);
+
+    if (!name.trim()) {
+      console.log('GameService: Nome vazio, retornando todos os jogos');
+      return this.getGames();
+    }
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+
+    const url = `${this.apiUrl}/games/${encodeURIComponent(name.trim())}`;
+    console.log('GameService: URL da busca:', url);
+
+    return this.http.get<Game[]>(url, {
+      headers: headers
+    }).pipe(
+      tap({
+        next: (response) => {
+          console.log('GameService: Resposta da busca recebida:', response);
+        },
+        error: (error) => {
+          console.error('GameService: Erro na busca:', error);
+          console.error('GameService: Status do erro:', error.status);
+          console.error('GameService: Mensagem do erro:', error.message);
+          if (error.error) {
+            console.error('GameService: Detalhes do erro:', error.error);
+          }
+        }
+      }),
+      catchError((error) => {
+        console.log('GameService: Erro interceptado no catchError da busca:', error);
         return this.handleError(error);
       })
     );
