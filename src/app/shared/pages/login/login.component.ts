@@ -17,6 +17,8 @@ export class LoginComponent {
   isRegistering = false;
   errorMessage: string = '';
   isLoading: boolean = false;
+  isAuthenticated$;
+  currentUser$;
 
   constructor(
     private fb: FormBuilder,
@@ -33,6 +35,9 @@ export class LoginComponent {
       login: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
+    this.isAuthenticated$ = this.authService.isAuthenticated$;
+    this.currentUser$ = this.authService.currentUser$;
   }
 
   onSubmit(): void {
@@ -46,6 +51,11 @@ export class LoginComponent {
     } else {
       this.handleLogin();
     }
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   private handleLogin(): void {

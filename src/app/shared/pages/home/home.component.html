@@ -66,12 +66,16 @@
               <p class="game-appid">AppID: {{ game.appId }}</p>
               
               <div class="game-stats">
-                <span class="positive-reviews">
-                  👍 {{ game.positive | number }}
-                </span>
-                <span *ngIf="game.discount > 0" class="discount-badge">
-                  -{{ game.discount }}% OFF
-                </span>
+                <div class="stats-left">
+                  <span class="positive-reviews">
+                    👍 {{ game.positive | number }}
+                  </span>
+                </div>
+                <div class="stats-right">
+                  <span *ngIf="game.discount > 0" class="discount-badge">
+                    -{{ game.discount }}% OFF
+                  </span>
+                </div>
               </div>
 
               <button class="wishlist-button" (click)="addToWishlist(game)">

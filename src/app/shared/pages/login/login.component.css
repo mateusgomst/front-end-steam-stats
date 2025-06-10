@@ -126,6 +126,29 @@ input::placeholder {
   cursor: not-allowed;
 }
 
+/* Estado de usuário logado */
+.logged-in-state {
+  text-align: center;
+}
+
+.user-info {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: #2a2438;
+  border-radius: 8px;
+  border: 2px solid #5c4d7d;
+}
+
+.user-info p {
+  color: #8e7cc3;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
 /* Animação de loading */
 @keyframes pulse {
   0% { opacity: 1; }
@@ -156,6 +179,14 @@ button:disabled {
   }
 
   input, .submit-button, .toggle-button {
+    font-size: 0.7rem;
+  }
+
+  .user-info {
+    padding: 1rem;
+  }
+
+  .user-info p {
     font-size: 0.7rem;
   }
 } 
