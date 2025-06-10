@@ -49,6 +49,11 @@
       <p>{{ wishlistError }}</p>
     </div>
 
+    <!-- Mensagem de sucesso da wishlist -->
+    <div *ngIf="wishlistSuccess" class="success-message wishlist-success">
+      <p>{{ wishlistSuccess }}</p>
+    </div>
+
     <!-- Estado de carregamento -->
     <div *ngIf="isLoading" class="loading-state">
       <p>{{ searchTerm ? 'Buscando jogos...' : 'Carregando jogos...' }}</p>

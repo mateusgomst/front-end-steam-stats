@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   public error: string | null = null;
   public isLoading = false;
   public wishlistError: string | null = null;
+  public wishlistSuccess: string | null = null;
   public searchTerm = '';
 
   constructor(
@@ -115,11 +116,15 @@ export class HomeComponent implements OnInit {
 
   addToWishlist(game: Game): void {
     this.wishlistError = null;
-    
+    this.wishlistSuccess = null;
     this.wishlistService.addToWishlist(game.appId, game.nameGame)
       .subscribe({
         next: () => {
           console.log('Jogo adicionado à wishlist com sucesso');
+          this.wishlistSuccess = 'Jogo adicionado à wishlist com sucesso!';
+          setTimeout(() => {
+            this.wishlistSuccess = null;
+          }, 3000);
         },
         error: (error) => {
           console.error('Erro ao adicionar à wishlist:', error);

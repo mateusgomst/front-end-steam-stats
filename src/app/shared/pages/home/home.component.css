@@ -289,4 +289,24 @@
   .discount-badge {
     margin-top: 0.25rem;
   }
+}
+
+.success-message {
+  background-color: #1b2d1b;
+  border: 2px solid #a0e4b0;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.success-message p {
+  color: #a0e4b0;
+  margin-bottom: 1rem;
+}
+
+.wishlist-success {
+  background-color: #1b2d1b;
+  border-color: #a0e4b0;
+  margin-bottom: 1rem;
 }                 
