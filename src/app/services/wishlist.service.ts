@@ -10,7 +10,7 @@ import { Game } from '../models/game.model';
   providedIn: 'root'
 })
 export class WishlistService {
-  private readonly apiUrl = 'http://localhost:5090/wishlist';
+  private readonly apiUrl = 'https://api-steam-stats.onrender.com/wishlist';
   private readonly MAX_WISHLIST_ITEMS = 10;
 
   constructor(

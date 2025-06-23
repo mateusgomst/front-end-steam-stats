@@ -1,0 +1,10 @@
+{
+  "buildCommand": "ng build --configuration=production",
+  "outputDirectory": "dist/front-steam-stats/browser",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

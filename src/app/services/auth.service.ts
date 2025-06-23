@@ -7,7 +7,7 @@ import { AuthRequest, AuthResponse, User } from '../models/auth.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:5090/auth';
+  private readonly apiUrl = 'https://api-steam-stats.onrender.com/auth';
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'user_data';
   

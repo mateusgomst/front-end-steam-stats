@@ -9,7 +9,7 @@ import { Game } from '../models/game.model';
   providedIn: 'root'
 })
 export class GameService {
-  private readonly apiUrl = 'http://localhost:5090';
+  private readonly apiUrl = 'https://api-steam-stats.onrender.com';
 
   constructor(private http: HttpClient) { }
 
