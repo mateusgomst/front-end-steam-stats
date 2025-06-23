@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { ModalService } from '../../../services/modal.service';
+import { WelcomeModalComponent } from '../../_components/welcome-modal/welcome-modal.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, WelcomeModalComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
   isRegistering = false;
@@ -19,11 +21,13 @@ export class LoginComponent {
   isLoading: boolean = false;
   isAuthenticated$;
   currentUser$;
+  showWelcomeModal$;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) {
     this.loginForm = this.fb.group({
       login: ['', [Validators.required, Validators.email]],
@@ -38,6 +42,23 @@ export class LoginComponent {
 
     this.isAuthenticated$ = this.authService.isAuthenticated$;
     this.currentUser$ = this.authService.currentUser$;
+    this.showWelcomeModal$ = this.modalService.showWelcomeModal$;
+  }
+
+  ngOnInit(): void {
+    // Verifica se deve mostrar o modal de boas-vindas
+    this.modalService.checkAndShowWelcomeModal();
+    
+    // Se o usuário já estiver autenticado, redireciona para home
+    this.authService.isAuthenticated$.subscribe(isAuth => {
+      if (isAuth) {
+        this.router.navigate(['/home']);
+      }
+    });
+  }
+
+  onCloseWelcomeModal(): void {
+    this.modalService.closeWelcomeModal();
   }
 
   onSubmit(): void {
@@ -77,16 +98,7 @@ export class LoginComponent {
     } else {
       this.isLoading = false;
       this.errorMessage = 'Por favor, preencha todos os campos corretamente';
-      Object.keys(this.loginForm.controls).forEach(key => {
-        const control = this.loginForm.get(key);
-        if (control?.errors) {
-          if (key === 'login' && control.errors['email']) {
-            this.errorMessage = 'Por favor, insira um email válido';
-          } else if (key === 'password' && control.errors['minlength']) {
-            this.errorMessage = 'A senha deve ter pelo menos 6 caracteres';
-          }
-        }
-      });
+      this.validateFormAndSetError(this.loginForm);
     }
   }
 
@@ -119,21 +131,30 @@ export class LoginComponent {
     } else {
       this.isLoading = false;
       this.errorMessage = 'Por favor, preencha todos os campos corretamente';
-      Object.keys(this.registerForm.controls).forEach(key => {
-        const control = this.registerForm.get(key);
-        if (control?.errors) {
-          if (key === 'login' && control.errors['email']) {
-            this.errorMessage = 'Por favor, insira um email válido';
-          } else if (key === 'password' && control.errors['minlength']) {
-            this.errorMessage = 'A senha deve ter pelo menos 6 caracteres';
-          }
-        }
-      });
+      this.validateFormAndSetError(this.registerForm);
     }
+  }
+
+  private validateFormAndSetError(form: FormGroup): void {
+    Object.keys(form.controls).forEach(key => {
+      const control = form.get(key);
+      if (control?.errors) {
+        if (key === 'login' && control.errors['email']) {
+          this.errorMessage = 'Por favor, insira um email válido';
+        } else if (key === 'password' && control.errors['minlength']) {
+          this.errorMessage = 'A senha deve ter pelo menos 6 caracteres';
+        } else if (key === 'name' && control.errors['required']) {
+          this.errorMessage = 'O nome é obrigatório';
+        }
+      }
+    });
   }
 
   toggleMode(): void {
     this.isRegistering = !this.isRegistering;
     this.errorMessage = '';
+    // Reset dos formulários ao alternar
+    this.loginForm.reset();
+    this.registerForm.reset();
   }
-} 
+}

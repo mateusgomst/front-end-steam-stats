@@ -1,3 +1,9 @@
+<!-- Modal de Boas-vindas -->
+<app-welcome-modal 
+  *ngIf="showWelcomeModal$ | async" 
+  (closeModal)="onCloseWelcomeModal()">
+</app-welcome-modal>
+
 <div class="login-container">
   <div class="login-box">
     <!-- Estado logado -->
@@ -105,4 +111,4 @@
       </button>
     </ng-container>
   </div>
-</div> 
+</div>

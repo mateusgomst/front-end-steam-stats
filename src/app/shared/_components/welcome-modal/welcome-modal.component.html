@@ -1,0 +1,48 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h2 class="modal-title">BEM-VINDO!</h2>
+      <button class="close-button" (click)="onClose()" aria-label="Fechar modal">×</button>
+    </div>
+    
+    <div class="modal-content">
+      <div class="welcome-icon">🎮</div>
+      
+      <div class="welcome-text">
+        <p class="intro">
+          Este é o seu portal para gerenciar sua <strong>wishlist de jogos</strong>!
+        </p>
+        
+        <div class="info-section">
+          <h3>📧 Notificações por Email</h3>
+          <p>
+            O email da sua conta será usado para enviar notificações quando 
+            algum jogo da sua wishlist estiver em <strong>promoção</strong>.
+          </p>
+        </div>
+        
+        <div class="info-section">
+          <h3>💰 Preços e Promoções</h3>
+          <p>
+            Todas as promoções são baseadas no mercado da <strong>Steam dos EUA</strong>, 
+            garantindo que você não perca nenhuma oferta imperdível!
+          </p>
+        </div>
+        
+        <div class="info-section">
+          <h3>🚀 Como Começar</h3>
+          <p>
+            Faça login ou crie sua conta para começar a adicionar jogos 
+            à sua wishlist e receber alertas de promoções.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="understand-button" (click)="onClose()">
+        ENTENDI, VAMOS COMEÇAR!
+      </button>
+    </div>
+  </div>
+</div>
