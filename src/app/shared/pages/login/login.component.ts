@@ -1,3 +1,4 @@
+// src/app/shared/pages/login/login.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -49,12 +50,8 @@ export class LoginComponent implements OnInit {
     // Verifica se deve mostrar o modal de boas-vindas
     this.modalService.checkAndShowWelcomeModal();
     
-    // Se o usuário já estiver autenticado, redireciona para home
-    this.authService.isAuthenticated$.subscribe(isAuth => {
-      if (isAuth) {
-        this.router.navigate(['/home']);
-      }
-    });
+    // REMOVIDO: Todo o código de redirecionamento
+    // O loginGuard agora cuida disso automaticamente
   }
 
   onCloseWelcomeModal(): void {
@@ -76,7 +73,8 @@ export class LoginComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
-    this.router.navigate(['/login']);
+    // Não precisa mais redirecionar manualmente
+    // O sistema de guards vai cuidar disso
   }
 
   private handleLogin(): void {
@@ -87,6 +85,7 @@ export class LoginComponent implements OnInit {
         next: (response) => {
           console.log('Login bem-sucedido:', response);
           this.isLoading = false;
+          // Redireciona para home após login bem-sucedido
           this.router.navigate(['/home']);
         },
         error: (error) => {
